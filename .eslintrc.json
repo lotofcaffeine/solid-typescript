@@ -1,31 +1,19 @@
 {
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "extends": [
-    "standard-with-typescript",
-    "plugin:react/recommended",
-    "plugin:cypress/recommended"
-  ],
   "env": {
-    "cypress/globals": true
+    "browser": true,
+    "es2020": true
   },
-  "plugins": ["react", "cypress"],
+  "extends": ["plugin:react/recommended", "standard"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig-eslint.json"
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11,
+    "sourceType": "module"
   },
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "@typescript-eslint/consistent-type-definitions": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off",
-    "@typescript-eslint/no-floating-promises": "off",
-    "@typescript-eslint/comma-spacing": "off",
-    "@typescript-eslint/return-await": "off",
-    "@typescript-eslint/no-namespace": "off",
-    "no-redeclare": "off",
-    "import/export": "off",
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "semicolon": [true, "never"]
   }
 }
