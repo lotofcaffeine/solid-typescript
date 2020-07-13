@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/lotofcaffeine/solid-typescript/issues"
   },
-  "homepage": "https://github.com/lotofcaffeine/solid-typescript#readme"
+  "homepage": "https://github.com/lotofcaffeine/solid-typescript#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^2.4.4"
+  }
 }
