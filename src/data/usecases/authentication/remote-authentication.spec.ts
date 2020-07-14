@@ -1,7 +1,10 @@
 import { RemoteAuthentication } from './remote-authentication';
-import { HttpPostClientSpy } from '../../test/mock-http';
+// import { HttpPostClientSpy } from '@/data/test/mock-http';
+// import { mockAuthenticationParams } from '@/domain/test/mock-authentication';
+
+import { HttpPostClientSpy } from '@/data/test/mock-http';
+import { mockAuthenticationParams } from '@/domain/test/mock-authentication';
 import faker from 'faker';
-import { mockAuthenticationParams } from '../../../domain/test/mock-authentication';
 
 /* eslint-disable no-useless-constructor */
 type SutTypes = {

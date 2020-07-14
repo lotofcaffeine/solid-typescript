@@ -1,4 +1,4 @@
-import { Authentication } from '../usecases/authentication';
+import { Authentication } from '@/domain/usecases/authentication';
 import faker from 'faker';
 
 export const mockAuthenticationParams = (): Authentication.Params => ({
