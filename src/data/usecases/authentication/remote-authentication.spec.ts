@@ -7,6 +7,7 @@ import { mockAuthenticationParams } from '@/domain/test/mock-authentication';
 import faker from 'faker';
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
 import { HttpStatusCode } from '@/data/protocols/http/http-response';
+import { UnexpectedError } from '@/domain/errors/unexpected-error';
 
 /* eslint-disable no-useless-constructor */
 type SutTypes = {
@@ -45,4 +46,42 @@ describe('RemoteAuthentication', () => {
     const promise = sut.auth(mockAuthenticationParams());
     await expect(promise).rejects.toThrow(new InvalidCredentialsError());
   });
+
+  test('Should throw UnexpectedError if HttpClient returns 400', async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest,
+    };
+    const promise = sut.auth(mockAuthenticationParams());
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test('Should throw UnexpectedError if HttpClient returns 500', async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.serverError,
+    };
+    const promise = sut.auth(mockAuthenticationParams());
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  test('Should throw UnexpectedError if HttpClient returns 404', async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.notFound,
+    };
+    const promise = sut.auth(mockAuthenticationParams());
+    await expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
+  // test('Should return an Authentication.Model if HttpClient returns 200', async () => {
+  //   const { sut, httpClientSpy } = makeSut();
+  //   const httpResult = mockAuthenticationModel();
+  //   httpClientSpy.response = {
+  //     statusCode: HttpStatusCode.ok,
+  //     body: httpResult,
+  //   };
+  //   const account = await sut.auth(mockAuthenticationParams());
+  //   expect(account).toEqual(httpResult);
+  // });
 });
