@@ -9,18 +9,22 @@ import {
 } from '@/data/protocols/http/http-response';
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
 import { UnexpectedError } from '@/domain/errors/unexpected-error';
+import { AccountModel } from '@/domain/models/account-models';
 
 export class RemoteAuthentication {
   constructor(
     private readonly url: string,
-    private readonly httpClient: HttpPostClient
+    private readonly httpClient: HttpPostClient<
+      Authentication.Params,
+      AccountModel
+    >
   ) {}
 
   async auth(params: Authentication.Params): Promise<void> {
     const httpResponse = await this.httpClient.post({
       url: this.url,
       body: params,
-    } as HttpPostParams);
+    });
     switch (httpResponse.statusCode) {
       case HttpStatusCode.unathorized:
         throw new InvalidCredentialsError();
